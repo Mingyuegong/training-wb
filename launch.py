@@ -6,14 +6,19 @@ import importlib.util
 import shlex
 import platform
 import json
-
 from modules import cmd_args
 from modules.paths_internal import script_path, extensions_dir
+from pyngrok import ngrok
+public_url = ngrok.connect(7860).public_url
+print('Public URL:', public_url)
+
 
 commandline_args = os.environ.get('COMMANDLINE_ARGS', "")
 sys.argv += shlex.split(commandline_args)
 
 args, _ = cmd_args.parser.parse_known_args()
+
+
 
 python = sys.executable
 git = os.environ.get('GIT', "git")
